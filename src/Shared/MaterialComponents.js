@@ -13,6 +13,18 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
+import TextField from "@material-ui/core/TextField";
+import MuiAccordion from "@material-ui/core/Accordion";
+import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 // marterial End import END
 
@@ -26,6 +38,8 @@ import ForumIcon from "@material-ui/icons/Forum";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 // marterial icons import END
 
 export {
@@ -34,15 +48,6 @@ export {
     Badge,
     AppBar,
     Toolbar,
-    IconButton,
-    MenuIcon,
-    SearchIcon,
-    AddIcon,
-    HistoryIcon,
-    ForumIcon,
-    NotificationsIcon,
-    SettingsIcon,
-    AccountCircleIcon,
     InputBase,
     Tabs,
     Tab,
@@ -52,4 +57,29 @@ export {
     CardContent,
     Paper,
     Avatar,
+    TextField,
+    MuiAccordion,
+    MuiAccordionSummary,
+    MuiAccordionDetails,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    IconButton,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    // icons import start
+    MenuIcon,
+    SearchIcon,
+    AddIcon,
+    HistoryIcon,
+    ForumIcon,
+    NotificationsIcon,
+    SettingsIcon,
+    AccountCircleIcon,
+    EditIcon,
+    DeleteIcon,
+    // icons import end
 };

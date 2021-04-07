@@ -9,7 +9,7 @@ function ActiveTabData(props) {
 
     return (
         <div
-            role='activetabdata'
+            role='tabpanel'
             hidden={value !== index}
             id={`simple-activetabdata-${index}`}
             aria-labelledby={`simple-activetabdata-${index}`}
@@ -31,7 +31,7 @@ function CompletedTabData(props) {
 
     return (
         <div
-            role='completedtabdata'
+            role='tabpanel'
             hidden={value !== index}
             id={`simple-completedtabdata-${index}`}
             aria-labelledby={`simple-completedtabdata-${index}`}
