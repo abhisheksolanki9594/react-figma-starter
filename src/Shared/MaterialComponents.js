@@ -25,6 +25,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Snackbar from "@material-ui/core/Snackbar";
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from "@material-ui/pickers";
 
 // marterial End import END
 
@@ -40,6 +43,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CloseIcon from "@material-ui/icons/Close";
 // marterial icons import END
 
 export {
@@ -70,6 +74,11 @@ export {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    Snackbar,
+    DateFnsUtils,
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
     // icons import start
     MenuIcon,
     SearchIcon,
@@ -81,5 +90,6 @@ export {
     AccountCircleIcon,
     EditIcon,
     DeleteIcon,
+    CloseIcon,
     // icons import end
 };

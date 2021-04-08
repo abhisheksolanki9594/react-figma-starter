@@ -1,38 +1,37 @@
-import React from "react";
-import { Button } from "./material-components";
+import React, { useReducer } from "react";
 import "./App.css";
 
-function Greetings() {
-    const [name, setName] = React.useState(() => {
-        return window.localStorage.getItem("name") || "";
-    });
+import Header from "./Header/Header";
+import TaskListModule from "./Task/TaskListModule";
 
-    React.useEffect(() => {
-        window.localStorage.setItem("name", name);
-    }, [name]);
+export const AppContext = React.createContext();
+const initialState = {
+    searchValue: "",
+};
 
-    const handleChange = (event) => setName(event.target.value);
+function reducer(state, action) {
+    switch (action.type) {
+        case "UPDATE_INPUT":
+            return {
+                searchValue: action.data,
+            };
 
-    return (
-        <div>
-            <form>
-                <label htmlFor='name'>Name: </label>
-                <input value={name} onChange={handleChange} id='name'></input>
-            </form>
-            {name ? <strong>Hello {name}</strong> : "Please type your name"}
-        </div>
-    );
+        default:
+            return initialState;
+    }
 }
 
 function App() {
-    const [count, setCount] = React.useState(0);
+    const [state, dispatch] = useReducer(reducer, initialState);
+
     return (
         <>
-            <Button variant='contained' color='primary' onClick={() => setCount((totalCount) => totalCount + 1)}>
-                {count}
-            </Button>
+            <AppContext.Provider value={{ state, dispatch }}>
+                <Header />
+                <TaskListModule />
+            </AppContext.Provider>
         </>
     );
 }
 
-export { Greetings, App };
+export default App;

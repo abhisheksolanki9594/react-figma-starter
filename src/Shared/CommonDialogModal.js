@@ -27,12 +27,12 @@ export default function CommonDialog(props) {
             disableEscapeKeyDown
             maxWidth='xs'
             open={open}
-            aria-labelledby='alert-dialog-title'
-            aria-describedby='alert-dialog-description'
+            aria-labelledby='common-dialog-title'
+            aria-describedby='common-dialog-description'
         >
-            <DialogTitle id='alert-dialog-title'>{title}</DialogTitle>
+            <DialogTitle id='common-dialog-title'>{title}</DialogTitle>
             <DialogContent>
-                <DialogContentText id='alert-dialog-description'>{description}</DialogContentText>
+                <DialogContentText id='common-dialog-description'>{description}</DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleCancel} color='primary'>

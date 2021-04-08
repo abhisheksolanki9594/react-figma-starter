@@ -1,16 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import { App, Greetings } from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-import Header from "./Header/Header";
-import TaskListModule from "./Task/TaskListModule";
 
 ReactDOM.render(
     <React.StrictMode>
-        <Header />
-        <TaskListModule />
+        <App />
     </React.StrictMode>,
     document.getElementById("root")
 );
