@@ -1,4 +1,4 @@
-import { IconButton, MenuIcon } from "../../Shared/MaterialComponents";
+import { IconButton, MenuIcon } from "../../Commons/Material/MaterialComponents";
 
 export default function FirstSection() {
     return (

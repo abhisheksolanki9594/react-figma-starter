@@ -1,21 +1,5 @@
-import styled from "styled-components";
-import { Avatar, AccountCircleIcon, Typography } from "../Shared/MaterialComponents";
-
-const TaskDetails = styled.div.attrs(() => ({ tabIndex: 0 }))`
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    padding: 10px;
-
-    .avatar {
-        background-color: #1976d2;
-        margin-right: 20px;
-    }
-
-    .task-description {
-        margin: 5px 0px 10px 20px;
-    }
-`;
+import { TaskDetails } from "./Task.style";
+import { Avatar, AccountCircleIcon, Typography } from "../Commons/Material/MaterialComponents";
 
 export default function TaskTitle() {
     return (

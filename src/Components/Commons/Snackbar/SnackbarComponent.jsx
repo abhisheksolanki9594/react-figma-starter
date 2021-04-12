@@ -1,5 +1,5 @@
 import React from "react";
-import { Snackbar, IconButton, CloseIcon } from "./MaterialComponents";
+import { Snackbar, IconButton, CloseIcon } from "../Material/MaterialComponents";
 
 export default function SimpleSnackbar(props) {
     const { showSnackbar, duration, onClose, message } = props;

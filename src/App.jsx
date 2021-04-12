@@ -1,8 +1,8 @@
 import React, { useReducer } from "react";
 import "./App.css";
 
-import Header from "./Header/Header";
-import TaskListModule from "./Task/TaskListModule";
+import Header from "./Components/Header/Header";
+import TaskListModule from "./Components/Task/TaskListModule";
 
 export const AppContext = React.createContext();
 const initialState = {

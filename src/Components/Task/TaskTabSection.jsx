@@ -1,12 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 
-import { Box, Tab, Tabs, Typography } from "../Shared/MaterialComponents";
+import { TabContent } from "./Task.style";
+import { Box, Tab, Tabs, Typography } from "../Commons/Material/MaterialComponents";
 import AllTabModule from "./AllTaskTab/AllTaskTabModule";
-
-const TabContent = styled.section`
-    padding: 0px 25ch 0px 25ch;
-`;
 
 function ActiveTabData(props) {
     const { children, value, index, ...other } = props;

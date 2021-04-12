@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext } from "../../App";
+import { AppContext } from "../../../App";
 
 import Moment from "react-moment";
 import moment from "moment";
@@ -15,9 +15,9 @@ import {
     IconButton,
     EditIcon,
     DeleteIcon,
-} from "../../Shared/MaterialComponents";
-import SimpleSnackbar from "../../Shared/SnackbarComponent";
-import CommonDialog from "../../Shared/CommonDialogModal";
+} from "../../Commons/Material/MaterialComponents";
+import SimpleSnackbar from "../../Commons/Snackbar/SnackbarComponent";
+import CommonDialog from "../../Commons/Dialog/CommonDialogModal";
 
 import AllTaskTabModule from "./AllTaskTabModule";
 import EditTask from "./EditTask";
@@ -36,17 +36,17 @@ export default function GetTaskListAccordion(props) {
 
             copyAccordionValues.map((value, index) => {
                 accordionData.push({ ...value });
-                delete accordionData[index].detailedTask;
+                delete accordionData[index].taskDetails;
                 return value;
             });
 
             copyAccordionValues.map((value, index) => {
-                accordionData[index].detailedTask = [];
+                accordionData[index].taskDetails = [];
 
-                value.detailedTask.map((subTask) => {
+                value.taskDetails.map((subTask) => {
                     const title = subTask.taskTitle.toLowerCase();
                     if (title.includes(state.searchValue)) {
-                        accordionData[index].detailedTask.push(subTask);
+                        accordionData[index].taskDetails.push(subTask);
                     }
                     return subTask;
                 });
@@ -54,7 +54,7 @@ export default function GetTaskListAccordion(props) {
             });
 
             const filterDataWithDetails = lodash.filter(accordionData, (element) => {
-                return element.detailedTask.length !== 0;
+                return element.taskDetails.length !== 0;
             });
 
             accordionValues = filterDataWithDetails;
@@ -96,13 +96,13 @@ export default function GetTaskListAccordion(props) {
             });
 
             if (findAccordionObjectIndex !== -1) {
-                const findSubTaskRecordObjectIndex = accordionValues[findAccordionObjectIndex].detailedTask.findIndex((element) => {
-                    return element.subTaskId === newValue.subTaskId;
+                const findSubTaskRecordObjectIndex = accordionValues[findAccordionObjectIndex].taskDetails.findIndex((element) => {
+                    return element.taskId === newValue.taskId;
                 });
                 if (findSubTaskRecordObjectIndex !== -1) {
-                    accordionValues[findAccordionObjectIndex].detailedTask.splice(findSubTaskRecordObjectIndex, 1);
+                    accordionValues[findAccordionObjectIndex].taskDetails.splice(findSubTaskRecordObjectIndex, 1);
 
-                    if (accordionValues[findAccordionObjectIndex].detailedTask.length === 0) {
+                    if (accordionValues[findAccordionObjectIndex].taskDetails.length === 0) {
                         accordionValues.splice(findAccordionObjectIndex, 1);
                     }
 
@@ -122,9 +122,9 @@ export default function GetTaskListAccordion(props) {
         setSelectedEditModalValue(accordionDetailRecord);
     };
 
-    const deleteTask = (accordionId, subTaskId) => {
+    const deleteTask = (accordionId, taskId) => {
         setCommonDialogOpen(true);
-        setSelectedModalValue({ accordionId, subTaskId });
+        setSelectedModalValue({ accordionId, taskId });
     };
 
     const handleAccordionToggle = (index) => {
@@ -163,13 +163,13 @@ export default function GetTaskListAccordion(props) {
                             )}
                         </Typography>
                     </MuiAccordionSummary>
-                    {accordion.detailedTask.map((details) => (
-                        <MuiAccordionDetails key={details.subTaskId.toString()} className='accordion-details'>
+                    {accordion.taskDetails.map((details) => (
+                        <MuiAccordionDetails key={details.taskId.toString()} className='accordion-details'>
                             <FormControlLabel
-                                className={`accordion-detail-checkbox ${details.isCompleted ? "strike-through-text" : ""}`}
+                                className={`accordion-detail-checkbox ${details.taskIsCompleted ? "strike-through-text" : ""}`}
                                 onClick={(event) => event.stopPropagation()}
                                 onFocus={(event) => event.stopPropagation()}
-                                control={<Checkbox checked={details.isCompleted} color='primary' />}
+                                control={<Checkbox checked={details.taskIsCompleted} color='primary' />}
                                 label={details.taskTitle}
                             />
 
@@ -177,7 +177,7 @@ export default function GetTaskListAccordion(props) {
                                 <EditIcon />
                             </IconButton>
 
-                            <IconButton aria-label='delete' color='inherit' onClick={() => deleteTask(accordion.id, details.subTaskId)}>
+                            <IconButton aria-label='delete' color='inherit' onClick={() => deleteTask(accordion.id, details.taskId)}>
                                 <DeleteIcon />
                             </IconButton>
                         </MuiAccordionDetails>

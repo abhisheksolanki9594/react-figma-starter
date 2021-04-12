@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "./MaterialComponents";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "../Material/MaterialComponents";
 
 export default function CommonDialog(props) {
     const { title, description, onClose, open, selectedModalValue } = props;

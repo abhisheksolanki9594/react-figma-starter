@@ -1,4 +1,4 @@
-import { Badge, IconButton, ForumIcon, SettingsIcon, NotificationsIcon, AccountCircleIcon } from "../../Shared/MaterialComponents";
+import { Badge, IconButton, ForumIcon, SettingsIcon, NotificationsIcon, AccountCircleIcon } from "../../Commons/Material/MaterialComponents";
 
 export default function ThirdSection() {
     return (

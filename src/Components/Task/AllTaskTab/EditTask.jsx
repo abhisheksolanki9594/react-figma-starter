@@ -1,17 +1,21 @@
 import React from "react";
-import styled from "styled-components";
 
-import { TextField, Button, Checkbox, FormControlLabel, Dialog, DialogActions, DialogContent, DialogTitle } from "../../Shared/MaterialComponents";
-
-const EditModalDetails = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+import {
+    TextField,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+} from "../../Commons/Material/MaterialComponents";
+import { EditModalDetails } from "../Task.style";
 
 export default function EditTask(props) {
     const { title, onClose, open, selectedEditModalValue } = props;
     const [taskTitle, setTaskTitle] = React.useState(selectedEditModalValue.taskTitle);
-    const [isTaskCompleted, setIsTaskCompleted] = React.useState(selectedEditModalValue.isCompleted);
+    const [isTaskCompleted, setIsTaskCompleted] = React.useState(selectedEditModalValue.taskIsCompleted);
     const nodeRef = React.createRef();
 
     React.useEffect(() => {
@@ -26,7 +30,7 @@ export default function EditTask(props) {
 
     const handleOk = () => {
         selectedEditModalValue.taskTitle = taskTitle;
-        selectedEditModalValue.isCompleted = isTaskCompleted;
+        selectedEditModalValue.taskIsCompleted = isTaskCompleted;
 
         onClose(selectedEditModalValue);
     };

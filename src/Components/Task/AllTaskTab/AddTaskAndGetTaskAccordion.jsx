@@ -1,98 +1,14 @@
 import React from "react";
-import styled from "styled-components";
 
 import moment from "moment";
 import lodash from "lodash";
 
-import SimpleSnackbar from "../../Shared/SnackbarComponent";
+import SimpleSnackbar from "../../Commons/Snackbar/SnackbarComponent";
 import GetTaskListAccordion from "./GetTaskListAccordion";
 
-import { TextField, Button, DateFnsUtils, MuiPickersUtilsProvider, KeyboardDatePicker } from "../../Shared/MaterialComponents";
-
+import { TextField, Button, DateFnsUtils, MuiPickersUtilsProvider, KeyboardDatePicker } from "../../Commons/Material/MaterialComponents";
+import { AllTabDetails, TabContent } from "../Task.style";
 import AllTaskTabModule from "./AllTaskTabModule";
-
-const TabContent = styled.section`
-    padding: 0px 25ch 0px 25ch;
-`;
-
-const AllTabDetails = styled.section`
-    display: flex;
-    flex-direction: column;
-    margin: 50px 0px 50px 0px;
-
-    .add-task-section {
-        display: flex;
-        justify-content: space-between;
-        margin: 0px 0px 50px 0px;
-    }
-
-    .add-task-section {
-        .add-task-datepicker {
-            width: 23ch;
-            margin-right: 20px;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-
-        .add-task-input .MuiOutlinedInput-root {
-            width: 105ch;
-            margin-right: 20px;
-        }
-
-        .add-task-button {
-            background-color: #1976d2;
-            color: #ffffff;
-            flex-grow: 1;
-        }
-    }
-
-    .all-task-details {
-        display: flex;
-        flex-direction: column;
-
-        .accordion-header {
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            box-shadow: none;
-            &:not(:last-child): {
-                border-bottom: 0;
-            }
-            &:before: {
-                display: none;
-            }
-            &$expanded: {
-                margin: auto;
-            }
-        }
-
-        .accordion-summary {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-            margin-bottom: -1;
-            min-height: 56;
-            &$expanded: {
-                minheight: 56;
-            }
-        }
-
-        .accordion-details {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            padding: 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-            color: #000000 !important;
-
-            .accordion-detail-checkbox {
-                width: 135ch;
-                border-right: 1px solid rgba(0, 0, 0, 0.125);
-            }
-        }
-    }
-
-    .strike-through-text {
-        text-decoration: line-through;
-    }
-`;
 
 export default function AddTaskAndGetTaskAccordion(props) {
     const { value, index } = props;
@@ -122,56 +38,84 @@ export default function AddTaskAndGetTaskAccordion(props) {
         accordionData = JSON.parse(window.localStorage.getItem("accordionData"));
         accordionData = orderByTaskDate();
     } else {
-        let tempAccordionData = [
-            {
-                id: 1,
-                taskDate: moment().format(),
-                expanded: true,
-                detailedTask: [
-                    { subTaskId: 1, taskTitle: "Todo", isCompleted: false },
-                    { subTaskId: 2, taskTitle: "Todo", isCompleted: false },
-                    { subTaskId: 3, taskTitle: "Today new", isCompleted: false },
-                ],
-            },
-            {
-                id: 2,
-                taskDate: moment().subtract(2, "d").format(),
-                expanded: true,
-                detailedTask: [
-                    { subTaskId: 1, taskTitle: "Todo", isCompleted: false },
-                    { subTaskId: 2, taskTitle: "Old new", isCompleted: false },
-                ],
-            },
-            {
-                id: 3,
-                taskDate: moment().subtract(2, "d").format(),
-                expanded: true,
-                detailedTask: [
-                    { subTaskId: 1, taskTitle: "Todo", isCompleted: true },
-                    { subTaskId: 2, taskTitle: "Todo", isCompleted: true },
-                ],
-            },
-            {
-                id: 4,
-                taskDate: moment().add(2, "d").format(),
-                expanded: true,
-                detailedTask: [{ subTaskId: 1, taskTitle: "New Date", isCompleted: false }],
-            },
-            {
-                id: 5,
-                taskDate: moment().add(4, "d").format(),
-                expanded: true,
-                detailedTask: [{ subTaskId: 1, taskTitle: "new date check", isCompleted: false }],
-            },
-        ];
-        accordionData = tempAccordionData;
-        tempAccordionData = orderByTaskDate();
+        let tempAccordionData = [];
 
-        window.localStorage.setItem("accordionData", JSON.stringify(tempAccordionData));
+        fetch("http://localhost:5001/api/tasks/task-detail")
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    if (result.data) {
+                        tempAccordionData = result.data.map((value, index) => {
+                            value.id = index + 1;
+                            value.taskDate = moment(value.taskDate).format();
+                            value.expanded = true;
+
+                            value.taskDetails.map((detailValue) => {
+                                detailValue.taskDate = moment(detailValue.taskDate).format();
+                                detailValue.taskIsCompleted = detailValue.taskIsCompleted === 1 ? true : false;
+                                return detailValue;
+                            });
+
+                            return value;
+                        });
+
+                        accordionData = tempAccordionData;
+                        tempAccordionData = orderByTaskDate();
+
+                        window.localStorage.setItem("accordionData", JSON.stringify(tempAccordionData));
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+
+        // let tempAccordionData = [
+        //     {
+        //         id: 1,
+        //         taskDate: moment().format(),
+        //         expanded: true,
+        //         detailedTask: [
+        //             { subTaskId: 1, taskTitle: "Todo", taskIsCompleted: false },
+        //             { subTaskId: 2, taskTitle: "Todo", taskIsCompleted: false },
+        //             { subTaskId: 3, taskTitle: "Today new", taskIsCompleted: false },
+        //         ],
+        //     },
+        //     {
+        //         id: 2,
+        //         taskDate: moment().subtract(2, "d").format(),
+        //         expanded: true,
+        //         detailedTask: [
+        //             { subTaskId: 1, taskTitle: "Todo", taskIsCompleted: false },
+        //             { subTaskId: 2, taskTitle: "Old new", taskIsCompleted: false },
+        //         ],
+        //     },
+        //     {
+        //         id: 3,
+        //         taskDate: moment().subtract(2, "d").format(),
+        //         expanded: true,
+        //         detailedTask: [
+        //             { subTaskId: 1, taskTitle: "Todo", taskIsCompleted: true },
+        //             { subTaskId: 2, taskTitle: "Todo", taskIsCompleted: true },
+        //         ],
+        //     },
+        //     {
+        //         id: 4,
+        //         taskDate: moment().add(2, "d").format(),
+        //         expanded: true,
+        //         detailedTask: [{ subTaskId: 1, taskTitle: "New Date", taskIsCompleted: false }],
+        //     },
+        //     {
+        //         id: 5,
+        //         taskDate: moment().add(4, "d").format(),
+        //         expanded: true,
+        //         detailedTask: [{ subTaskId: 1, taskTitle: "new date check", taskIsCompleted: false }],
+        //     },
+        // ];
     }
 
     const addNewTask = () => {
-        if (selectedDate && selectedDate !== "") {
+        if (selectedDate && selectedDate !== "" && addTaskInput !== "") {
             const findSelectedDateTaskIndexIfPresent = accordionData.findIndex(
                 (element) => moment(element.taskDate).format("YYYY-MM-DD") === moment(selectedDate).format("YYYY-MM-DD")
             );
@@ -195,7 +139,7 @@ export default function AddTaskAndGetTaskAccordion(props) {
                         {
                             subTaskId: 1,
                             taskTitle: addTaskInput,
-                            isCompleted: false,
+                            taskIsCompleted: false,
                         },
                     ],
                 });
@@ -207,8 +151,16 @@ export default function AddTaskAndGetTaskAccordion(props) {
                 AllTaskTabModule({ ...props });
             }
         } else {
-            setSnackbarMessage("Please select the date for which you want to add task");
-            setShowSnackbarOpen(true);
+            if (selectedDate && selectedDate === "" && addTaskInput === "") {
+                setSnackbarMessage("Please enter proper data to add task");
+                setShowSnackbarOpen(true);
+            } else if (selectedDate === "") {
+                setSnackbarMessage("Please select the date for which you want to add task");
+                setShowSnackbarOpen(true);
+            } else if (addTaskInput === "") {
+                setSnackbarMessage("Please add what you have worked on data to add task");
+                setShowSnackbarOpen(true);
+            }
         }
     };
 
@@ -249,7 +201,7 @@ export default function AddTaskAndGetTaskAccordion(props) {
                                 Add
                             </Button>
                         </div>
-
+                        {console.log(accordionData)}
                         <GetTaskListAccordion accordionValues={accordionData} {...props} />
                     </AllTabDetails>
                 </TabContent>

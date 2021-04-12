@@ -1,37 +1,7 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
-
-import { IconButton, SearchIcon, AddIcon, HistoryIcon, InputBase } from "../../Shared/MaterialComponents";
-import { AppContext } from "../../App";
-
-const SearchBox = styled.div`
-    width: auto;
-    position: relative;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    margin-right: 16px;
-    margin-left: 0;
-`;
-
-const SearchIconStyle = styled.div`
-    height: 100%;
-    display: flex;
-    padding: 0px 16px;
-    position: absolute;
-    align-items: center;
-    pointer-events: none;
-    justify-content: center;
-`;
-
-const SearchInput = styled.div`
-    color: #ffffff;
-    padding: 8px 8px 8px 0px;
-    padding-left: calc(1em + 32px);
-
-    .search-input {
-        color: #ffffff;
-    }
-`;
+import { IconButton, SearchIcon, AddIcon, HistoryIcon, InputBase } from "../../Commons/Material/MaterialComponents";
+import { SearchBox, SearchIconStyle, SearchInput } from "../Header.style";
+import { AppContext } from "../../../App";
 
 export default function SecondSection() {
     const { dispatch } = useContext(AppContext);
