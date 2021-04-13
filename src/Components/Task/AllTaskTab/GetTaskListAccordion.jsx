@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../../App";
+import React from "react";
+// import { AppContext } from "../../../App";
+import { useSelector } from "react-redux";
 
 import Moment from "react-moment";
 import moment from "moment";
@@ -26,10 +27,11 @@ export default function GetTaskListAccordion(props) {
     let accordionValues = props.accordionValues;
     const currentDate = moment().format();
 
-    const { state } = useContext(AppContext);
+    // const { state } = useContext(AppContext);
+    const globalSearchValue = useSelector((store) => store.globalSearchValue);
 
-    if (state && state.searchValue) {
-        if (state.searchValue !== "") {
+    if (globalSearchValue) {
+        if (globalSearchValue !== "") {
             const copyAccordionValues = lodash.cloneDeep(accordionValues);
 
             let accordionData = [];
@@ -45,7 +47,7 @@ export default function GetTaskListAccordion(props) {
 
                 value.taskDetails.map((subTask) => {
                     const title = subTask.taskTitle.toLowerCase();
-                    if (title.includes(state.searchValue)) {
+                    if (title.includes(globalSearchValue)) {
                         accordionData[index].taskDetails.push(subTask);
                     }
                     return subTask;
@@ -141,11 +143,13 @@ export default function GetTaskListAccordion(props) {
 
     return (
         <div className='all-task-details'>
-            <div className='week-title'>
-                <Typography variant='h6'>
-                    <strong>This Week</strong>
-                </Typography>
-            </div>
+            {accordionValues && accordionValues.length > 0 && (
+                <div className='week-title'>
+                    <Typography variant='h6'>
+                        <strong>This Week</strong>
+                    </Typography>
+                </div>
+            )}
 
             {accordionValues.map((accordion, index) => (
                 <MuiAccordion
